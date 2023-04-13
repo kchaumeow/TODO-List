@@ -1,14 +1,29 @@
-body{
-
+.newTaskNotification{
+    padding: 1rem;
+    display: block;
+    border-radius: 5px;
+    text-align: center;
+    /* box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; */
+    box-shadow: 7px 7px;
+    border: solid 1px black;
+    transition: 0.4s;
+    background-color:darkseagreen;
 }
 
-.newTaskNotification{
-    position: absolute;
+.notificationFadeOut{
+    opacity: 0;
+}
+.notification-container{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
     right: 10px;
     bottom: 10px;
-    padding: 1rem;
+    position: absolute;
+    gap: 0.5rem;
+}
 
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+.tasks-container{
+    display: flex;
+    flex-direction: column;
 }
