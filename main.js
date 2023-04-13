@@ -1,13 +1,15 @@
 const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
+let emptylistslide;
 // document.addEventListener("DOMContentLoaded", getLocalTasks);
 // taskList.addEventListener("click", deleteCheck);
 // taskFilter.addEventListener("change", filteringTasks);
 function addNewTask(taskName) {
-    // const newTask = `<li class="taskItem">
-    //     <div class="taskText">${taskName}</div>
-    //     </li>`;
+    if (document.querySelector(".emptylistslide") != null){
+        emptylistslide = document.querySelector(".emptylistslide");
+        document.querySelector(".emptylistslide").remove();
+    }
     const newTask = document.createElement('li');
     newTask.classList.add("taskItem");
     newTask.innerHTML = `<div class="taskText">${taskName}</div>`;
@@ -31,6 +33,10 @@ taskList.addEventListener("click", function(e){
     if (e.target.tagName === "IMG"){
         showRedNotification(`Task <q>${e.target.parentNode.querySelector(".taskText").innerHTML}</q> was deleted!`);
         e.target.parentNode.remove();
+        console.log(document.querySelector(".taskList").getElementsByTagName("li"))
+        if (document.querySelector(".taskList").getElementsByTagName("li").length == 0){
+            document.querySelector(".tasks-container").appendChild(emptylistslide);
+        }
     }
 
 })

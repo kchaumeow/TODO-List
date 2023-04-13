@@ -58,7 +58,7 @@ h1{
     padding: 1em;
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     box-shadow: 0.7rem 0.7rem;
     background-color: white;
     font-family: 'Press Start 2P';
@@ -139,10 +139,22 @@ ul li.checked::after{
     background-image: url(checked.png);
 }
 .taskItem{
+    gap: 5em;
     display: flex;
     flex-direction: row;
 }
 #delete{
     width: 2em;
     height: 2em;
+}
+
+.emptylistslide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 50%;
+}
+.emptylistslide > img{
+    width: 60%;
 }
