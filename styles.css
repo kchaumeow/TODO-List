@@ -1,15 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+body{
+    background: linear-gradient(135deg, #4067b6, #b53bd3);
+    background-attachment: fixed;
+}
+header{
+    margin: 5rem;
+}
+h1{
+    text-align: center;
+    font-family: 'Press Start 2P';
+    font-size: 3rem;
+    color: aliceblue;
+    box-sizing: border-box;
+    text-shadow: .4rem .4rem 0 black;
+
+}
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
 .newTaskNotification{
+    font-family: 'Press Start 2P';
+    font-size: smaller;
     padding: 1rem;
     display: block;
     border-radius: 5px;
     text-align: center;
-    /* box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; */
+    width: 30em;
     box-shadow: 7px 7px;
     border: solid 1px black;
     transition: 0.4s;
     background-color:darkseagreen;
 }
-
+#red{
+    background-color:indianred;
+}
+#gold{
+    background-color:rgb(241, 222, 110);
+}
 .notificationFadeOut{
     opacity: 0;
 }
@@ -17,13 +47,102 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
+    position: absolute;
     right: 10px;
     bottom: 10px;
     position: absolute;
     gap: 0.5rem;
 }
-
 .tasks-container{
+    margin: 1rem;
+    padding: 1em;
     display: flex;
     flex-direction: column;
+    width: 50%;
+    box-shadow: 0.7rem 0.7rem;
+    background-color: white;
+    font-family: 'Press Start 2P';
+    font-size: medium;
+    border: solid  2px black;
+    border-radius: 0.2em;
+}
+.taskButton{
+    border-radius: .1rem;
+    background-color: black;
+    color: white;
+    font-family: 'Press Start 2P';
+    transition: transform 0.4s;
+    padding: 0.5em;
+}
+.taskButton:hover{
+    transform: scale(1.3);
+}
+form{
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    background-color: white;
+    padding: 0.3rem;
+    border: solid  2px black;
+    border-radius: 0.2em;
+}
+.taskList{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.taskName {
+    border: solid black 4px;
+    background-color: black;
+    color: white;
+    padding: 0.2em;
+    border-radius: .1rem;
+    font-family: 'Press Start 2P';
+    outline:none;
+    width: 20rem;
+    height: 1.4em;
+}
+.taskName:autofill {
+    border: solid black 4px;
+    background-color: black;
+    font-family: 'Press Start 2P';
+}
+.taskFilter{
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: 'Press Start 2P';
+    padding: 0.5em;
+    text-align: center;
+    outline:none;
+}
+ul li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+ul li::after{
+    content:'';
+    position: absolute;
+    right: 3.5em;
+    height: 40px;
+    width: 40px;
+    background-image: url(unchecked.png);
+    background-size: cover;
+}
+.checked{
+    color: gray;
+    text-decoration: line-through;
+}
+ul li.checked::after{
+    background-image: url(checked.png);
+}
+.taskItem{
+    display: flex;
+    flex-direction: row;
+}
+#delete{
+    width: 2em;
+    height: 2em;
 }
