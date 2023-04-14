@@ -73,6 +73,7 @@ h1{
     font-family: 'Press Start 2P';
     transition: transform 0.4s;
     padding: 0.5em;
+    cursor: pointer;
 }
 .taskButton:hover{
     transform: scale(1.3);
@@ -115,6 +116,7 @@ form{
     padding: 0.5em;
     text-align: center;
     outline:none;
+    cursor: pointer;
 }
 ul li{
     display: flex;
@@ -130,6 +132,7 @@ ul li::after{
     width: 40px;
     background-image: url(/images/unchecked.png);
     background-size: cover;
+    cursor: pointer;
 }
 .completed{
     color: gray;
@@ -137,6 +140,7 @@ ul li::after{
 }
 ul li.completed::after{
     background-image: url(/images/checked.png);
+    cursor: pointer;
 }
 .taskItem{
     gap: 5em;
@@ -146,6 +150,7 @@ ul li.completed::after{
 #delete{
     width: 2em;
     height: 2em;
+    cursor: pointer;
 }
 
 .emptylistslide1{
