@@ -4,7 +4,13 @@ body{
     background-attachment: fixed;
 }
 header{
-    margin: 5rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+*{
+    box-sizing: border-box;
 }
 h1{
     text-align: center;
@@ -28,7 +34,7 @@ h1{
     display: block;
     border-radius: 5px;
     text-align: center;
-    width: 30em;
+    width: 100%;
     box-shadow: 7px 7px;
     border: solid 1px black;
     transition: 0.4s;
@@ -46,19 +52,18 @@ h1{
 .notification-container{
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    position: absolute;
+    width: 30%;
+    position: fixed;
     right: 10px;
     bottom: 10px;
-    position: absolute;
     gap: 0.5rem;
 }
 .tasks-container{
-    margin: 1rem;
-    padding: 1em;
+    margin: auto;
+    padding: auto;
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
     box-shadow: 0.7rem 0.7rem;
     background-color: white;
     font-family: 'Press Start 2P';
@@ -91,6 +96,8 @@ form{
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding-left: 3em;
+    padding-right: 1em;
 }
 .taskName {
     border: solid black 4px;
@@ -101,7 +108,7 @@ form{
     font-family: 'Press Start 2P';
     outline:none;
     width: 20rem;
-    height: 1.4em;
+    height: 2.5em;
 }
 .taskName:autofill {
     border: solid black 4px;
@@ -118,6 +125,17 @@ form{
     outline:none;
     cursor: pointer;
 }
+@media screen and (max-width: 512px) {
+    form{
+        flex-wrap: wrap;
+    }
+    .tasks-container{
+        width: fit-content;
+    }
+    .notification-container{
+        width: 60%;
+    }
+}
 ul li{
     display: flex;
     align-items: center;
@@ -130,7 +148,7 @@ ul li::after{
     right: 3.5em;
     height: 40px;
     width: 40px;
-    background-image: url(/images/unchecked.png);
+    background-image: url(./images/unchecked.png);
     background-size: cover;
     cursor: pointer;
 }
@@ -139,7 +157,7 @@ ul li::after{
     text-decoration: line-through;
 }
 ul li.completed::after{
-    background-image: url(/images/checked.png);
+    background-image: url(./images/checked.png);
     cursor: pointer;
 }
 .taskItem{
@@ -157,23 +175,34 @@ ul li.completed::after{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
     justify-content: center;
+    width: 80%;
     opacity: 50%;
 }
 .emptylistslide2{
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin: auto;
+    width: 80%;
     opacity: 50%;
 }
 .emptylistslide3{
     display: none;
+    margin: auto;
     flex-direction: column;
     align-items: center;
+    width: 80%;
     justify-content: center;
     opacity: 50%;
 }
-.emptylistslide > img{
+.emptylistslide1 > img{
+    width: 60%;
+}
+.emptylistslide2 > img{
+    width: 60%;
+}
+.emptylistslide3 > img{
     width: 60%;
 }

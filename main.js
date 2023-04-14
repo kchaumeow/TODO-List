@@ -6,15 +6,16 @@ let emptylistslide1 = document.querySelector(".emptylistslide1");
 let emptylistslide2 = document.querySelector(".emptylistslide2");
 let emptylistslide3 = document.querySelector(".emptylistslide3");
 document.addEventListener("DOMContentLoaded", getLocalTasks);
+
+
 function addNewTask(taskName) {
     emptylistslide1.style.display = "none";
-    emptylistslide2.style.display = "none";
     const newTask = document.createElement('li');
     newTask.classList.add("taskItem");
     newTask.classList.add("incompleted");
     newTask.innerHTML = `<div class="taskText">${taskName}</div>`;
     const delImg = document.createElement("img");
-    delImg.src = "/images/delete.png";
+    delImg.src = "./images/delete.png";
     delImg.id = "delete";
     newTask.appendChild(delImg);
     let flag = saveLocalTasks(taskName, "incompleted");
@@ -44,7 +45,6 @@ taskList.addEventListener("click", function(e){
             emptylistslide1.style.display = "flex";
         }
     }
-
 })
 
 
@@ -89,7 +89,7 @@ function showGoldNotification(taskName) {
     document.querySelector(".notification-container").innerHTML += notification
     setTimeout(() => {
         document.querySelector('.newTaskNotification').classList.add("notificationFadeOut");
-        setTimeout(() => document.querySelector('.newTaskNotification').remove(), 1000);
+       setTimeout(() => document.querySelector('.newTaskNotification').remove(), 1000);
     }, 2000)
 }
 
@@ -171,7 +171,8 @@ function saveLocalTasks(taskName, taskStatus){
 
 function getLocalTasks(){
     let tasks;
-    if(localStorage.getItem('tasks') === null){
+    
+    if(localStorage.getItem('tasks') === null || JSON.parse(localStorage.getItem('tasks')).length == 0){
         emptylistslide1.style.display = "flex";
         tasks = [];
     }else{
@@ -188,7 +189,7 @@ function getLocalTasks(){
         newTask.classList.add(`${task.status}`);
         newTask.innerHTML = `<div class="taskText">${task.task}</div>`;
         const delImg = document.createElement("img");
-        delImg.src = "/images/delete.png";
+        delImg.src = "./images/delete.png";
         delImg.id = "delete";
         newTask.appendChild(delImg);
         taskList.appendChild(newTask);
