@@ -1,6 +1,11 @@
 const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
+const notificationList = document.querySelector(".notification-container");
+
+notificationList.addEventListener("click",(e)=>{
+    if (e.target.classList.contains("newTaskNotification")) e.target.remove();
+});
 // when list is empty appears
 let emptylistslide1 = document.querySelector(".emptylistslide1");
 let emptylistslide2 = document.querySelector(".emptylistslide2");
@@ -19,7 +24,16 @@ function addNewTask(taskName) {
     delImg.id = "delete";
     newTask.appendChild(delImg);
     let flag = saveLocalTasks(taskName, "incompleted");
-    if (!flag) taskList.appendChild(newTask);
+    
+    if (!flag){ 
+        if (taskFilter.value == "completed") {        
+            newTask.style.display = "none";
+            emptylistslide2.style.display = "flex";
+        }
+        if (taskFilter.value == "incompleted") {        
+            emptylistslide3.style.display = "none";
+        }
+        taskList.appendChild(newTask);}
     return flag;
 }
 
@@ -28,12 +42,20 @@ taskList.addEventListener("click", function(e){
     if (e.target.tagName === "LI" && e.target.classList.contains("completed")){
         e.target.classList.remove("completed");
         e.target.classList.toggle("incompleted");
+        if (taskFilter.value == "completed") {        
+            e.target.style.display = "none";
+            emptylistslide2.style.display = "flex";
+        }
         saveLocalTasks(e.target.querySelector(".taskText").innerHTML, "incompleted");
         showRedNotification(`Task <q>${e.target.querySelector(".taskText").innerHTML}</q> incomplited`);
     }
     else if (e.target.tagName === "LI"){
         e.target.classList.toggle("completed");
         e.target.classList.remove("incompleted");
+        if (taskFilter.value == "incomplete") {        
+            e.target.style.display = "none";
+            emptylistslide3.style.display = "flex";
+        }
         saveLocalTasks(e.target.querySelector(".taskText").innerHTML, "completed");
         showGoldNotification(`Task <q>${e.target.querySelector(".taskText").innerHTML}</q> completed!`);
     }
@@ -68,18 +90,19 @@ function showGreenNotification(taskName) {
     </div>`;
     document.querySelector(".notification-container").innerHTML += notification;
     setTimeout(() => {
-        document.querySelector('.newTaskNotification').classList.add("notificationFadeOut");
-        setTimeout(() => document.querySelector('.newTaskNotification').remove(), 1000);
+        
+        document.querySelector('.newTaskNotification')?.classList.add("notificationFadeOut");
+        setTimeout(() => document.querySelector('.newTaskNotification')?.remove(), 1000);
     }, 2000)
 }
 function showRedNotification(taskName) {
     let notification = `<div class="newTaskNotification" id="red">
         <div>${taskName}</div>
     </div>`;
-    document.querySelector(".notification-container").innerHTML += notification
+    document.querySelector(".notification-container").innerHTML += notification;
     setTimeout(() => {
-        document.querySelector('.newTaskNotification').classList.add("notificationFadeOut");
-        setTimeout(() => document.querySelector('.newTaskNotification').remove(), 1000);
+        document.querySelector('.newTaskNotification')?.classList.add("notificationFadeOut");
+        setTimeout(() => document.querySelector('.newTaskNotification')?.remove(), 1000);
     }, 2000)
 }
 function showGoldNotification(taskName) {
@@ -88,51 +111,52 @@ function showGoldNotification(taskName) {
     </div>`;
     document.querySelector(".notification-container").innerHTML += notification
     setTimeout(() => {
-        document.querySelector('.newTaskNotification').classList.add("notificationFadeOut");
-       setTimeout(() => document.querySelector('.newTaskNotification').remove(), 1000);
+        document.querySelector('.newTaskNotification')?.classList.add("notificationFadeOut");
+       setTimeout(() => document.querySelector('.newTaskNotification')?.remove(), 1000);
     }, 2000)
 }
 
-  function filterTasks(e){
-    const tasks = taskList.childNodes;
-    tasks.forEach(function(task){
-        switch(e.target.value){
-            case "all":
-                if (document.querySelector(".taskList").querySelector(".taskItem") === null){
-                    emptylistslide1.style.display = "flex";
-                }
-                emptylistslide2.style.display = "none";
-                emptylistslide3.style.display = "none";
-                task.style.display = 'flex';
-                break;
-            case "completed":
-                emptylistslide1.style.display = "none";
-                emptylistslide3.style.display = "none";
-                if (document.querySelector(".taskList").querySelector(".completed") === null){
-                    emptylistslide2.style.display = "flex";
-                }
-                if (task.classList.contains("completed")) {
-                    task.style.display = 'flex';
-                }else{
-                    task.style.display = "none";
-                }
-                break;
-            case "incomplete":
-                emptylistslide1.style.display = "none";
-                emptylistslide2.style.display = "none";
-                if (document.querySelector(".taskList").querySelector(".incompleted") === null){
-                    emptylistslide3.style.display = "flex";
-                }
-                if (task.classList.contains("incompleted")) {
-                    task.style.display = 'flex';
-                }else{
-                    task.style.display = "none";
-                }
-                break;
-        }
-    });
-  }
+
 taskFilter.addEventListener("change", filterTasks);
+function filterTasks(e){
+const tasks = taskList.childNodes;
+tasks.forEach(function(task){
+    switch(e.target.value){
+        case "all":
+            if (document.querySelector(".taskList").querySelector(".taskItem") === null){
+                emptylistslide1.style.display = "flex";
+            }
+            emptylistslide2.style.display = "none";
+            emptylistslide3.style.display = "none";
+            task.style.display = 'flex';
+            break;
+        case "completed":
+            emptylistslide1.style.display = "none";
+            emptylistslide3.style.display = "none";
+            if (document.querySelector(".taskList").querySelector(".completed") === null){
+                emptylistslide2.style.display = "flex";
+            }
+            if (task.classList.contains("completed")) {
+                task.style.display = 'flex';
+            }else{
+                task.style.display = "none";
+            }
+            break;
+        case "incomplete":
+            emptylistslide1.style.display = "none";
+            emptylistslide2.style.display = "none";
+            if (document.querySelector(".taskList").querySelector(".incompleted") === null){
+                emptylistslide3.style.display = "flex";
+            }
+            if (task.classList.contains("incompleted")) {
+                task.style.display = 'flex';
+            }else{
+                task.style.display = "none";
+            }
+            break;
+    }
+});
+}
 
 
 function saveLocalTasks(taskName, taskStatus){
