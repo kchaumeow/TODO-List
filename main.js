@@ -8,6 +8,7 @@ let emptylistslide3 = document.querySelector(".emptylistslide3");
 document.addEventListener("DOMContentLoaded", getLocalTasks);
 function addNewTask(taskName) {
     emptylistslide1.style.display = "none";
+    emptylistslide2.style.display = "none";
     const newTask = document.createElement('li');
     newTask.classList.add("taskItem");
     newTask.classList.add("incompleted");
