@@ -11,6 +11,7 @@ header{
 }
 *{
     box-sizing: border-box;
+    cursor:default;
 }
 h1{
     text-align: center;
@@ -109,6 +110,7 @@ form{
     outline:none;
     width: 20rem;
     height: 2.5em;
+    cursor: pointer;
 }
 .taskName:autofill {
     border: solid black 4px;

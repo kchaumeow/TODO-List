@@ -5,6 +5,7 @@ const notificationList = document.querySelector(".notification-container");
 
 notificationList.addEventListener("click",(e)=>{
     if (e.target.classList.contains("newTaskNotification")) e.target.remove();
+    if (e.target.classList.contains("taskNotificationText")) e.target.parentNode.remove();
 });
 // when list is empty appears
 let emptylistslide1 = document.querySelector(".emptylistslide1");
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", getLocalTasks);
 
 
 function addNewTask(taskName) {
+    emptylistslide3.style.display = "none";
     emptylistslide1.style.display = "none";
     const newTask = document.createElement('li');
     newTask.classList.add("taskItem");
@@ -42,9 +44,10 @@ taskList.addEventListener("click", function(e){
     if (e.target.tagName === "LI" && e.target.classList.contains("completed")){
         e.target.classList.remove("completed");
         e.target.classList.toggle("incompleted");
-        if (taskFilter.value == "completed") {        
+        if (taskFilter.value == "completed") {
+            if (document.querySelector(".completed") == null) emptylistslide2.style.display = "flex";       
             e.target.style.display = "none";
-            emptylistslide2.style.display = "flex";
+            
         }
         saveLocalTasks(e.target.querySelector(".taskText").innerHTML, "incompleted");
         showRedNotification(`Task <q>${e.target.querySelector(".taskText").innerHTML}</q> incomplited`);
@@ -52,9 +55,9 @@ taskList.addEventListener("click", function(e){
     else if (e.target.tagName === "LI"){
         e.target.classList.toggle("completed");
         e.target.classList.remove("incompleted");
-        if (taskFilter.value == "incomplete") {        
+        if (taskFilter.value == "incomplete") {
+            if (document.querySelector(".incompleted") == null) emptylistslide3.style.display = "flex";          
             e.target.style.display = "none";
-            emptylistslide3.style.display = "flex";
         }
         saveLocalTasks(e.target.querySelector(".taskText").innerHTML, "completed");
         showGoldNotification(`Task <q>${e.target.querySelector(".taskText").innerHTML}</q> completed!`);
@@ -65,6 +68,22 @@ taskList.addEventListener("click", function(e){
         e.target.parentNode.remove();
         if (document.querySelector(".taskList").getElementsByTagName("li").length == 0){
             emptylistslide1.style.display = "flex";
+        }
+        if (taskFilter.value == "incomplete") {
+            if (document.querySelector(".incompleted") == null) {
+                emptylistslide3.style.display = "flex";
+                emptylistslide1.style.display = "none";
+                emptylistslide2.style.display = "none";
+            }          
+            e.target.style.display = "none";
+        }
+        if (taskFilter.value == "complete") {
+            if (document.querySelector(".completed") == null) {
+                emptylistslide2.style.display = "flex";
+                emptylistslide3.style.display = "none";
+                emptylistslide1.style.display = "none";
+            }
+            e.target.style.display = "none";
         }
     }
 })
@@ -86,18 +105,17 @@ taskForm.addEventListener('submit', function (e) {
 
 function showGreenNotification(taskName) {
     const notification = `<div class="newTaskNotification">
-        <div>${taskName}</div>
+        <div class="taskNotificationText">${taskName}</div>
     </div>`;
     document.querySelector(".notification-container").innerHTML += notification;
     setTimeout(() => {
-        
         document.querySelector('.newTaskNotification')?.classList.add("notificationFadeOut");
         setTimeout(() => document.querySelector('.newTaskNotification')?.remove(), 1000);
     }, 2000)
 }
 function showRedNotification(taskName) {
     let notification = `<div class="newTaskNotification" id="red">
-        <div>${taskName}</div>
+        <div class="taskNotificationText">${taskName}</div>
     </div>`;
     document.querySelector(".notification-container").innerHTML += notification;
     setTimeout(() => {
@@ -107,7 +125,7 @@ function showRedNotification(taskName) {
 }
 function showGoldNotification(taskName) {
     let notification = `<div class="newTaskNotification" id="gold">
-        <div>${taskName}</div>
+        <div class="taskNotificationText">${taskName}</div>
     </div>`;
     document.querySelector(".notification-container").innerHTML += notification
     setTimeout(() => {
