@@ -39,14 +39,9 @@ h1{
     box-shadow: 7px 7px;
     border: solid 1px black;
     transition: 0.4s;
-    background-color:darkseagreen;
+    background-color:white;
 }
-#red{
-    background-color:indianred;
-}
-#gold{
-    background-color:rgb(241, 222, 110);
-}
+
 .notificationFadeOut{
     opacity: 0;
 }
