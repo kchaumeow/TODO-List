@@ -1,5 +1,5 @@
 
-const notificationList = document.querySelector(".notification-container");
+const notificationList = document.querySelector(".notificationСontainer");
 
 export function showNotification(taskName, bgColor) {
   const notification = document.createElement("div");

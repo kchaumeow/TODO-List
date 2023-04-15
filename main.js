@@ -1,18 +1,18 @@
 import { showNotification } from "./notification.js";
-import { saveLocalTasks, deleteFromLocalTasks } from "./local_storage.js";
+import {
+  saveLocalTasks,
+  deleteFromLocalTasks,
+  changeLocalTask,
+} from "./local_storage.js";
 const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
-const notificationList = document.querySelector(".notification-container");
 
 // when list is empty appears
-let emptylistslide1 = document.querySelector(".emptylistslide1");
-let emptylistslide2 = document.querySelector(".emptylistslide2");
-let emptylistslide3 = document.querySelector(".emptylistslide3");
+let emptylistslide = document.querySelector(".emptylistslide");
 
 function addNewTask(taskName) {
-  emptylistslide3.style.display = "none";
-  emptylistslide1.style.display = "none";
+  emptylistslide.style.display = "none";
   const newTask = document.createElement("li");
   newTask.classList.add("taskItem");
   newTask.classList.add("incompleted");
@@ -21,19 +21,13 @@ function addNewTask(taskName) {
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
   newTask.appendChild(delImg);
-  let flag = saveLocalTasks(taskName, "incompleted");
-
-  if (!flag) {
-    if (taskFilter.value == "completed") {
-      newTask.style.display = "none";
-      emptylistslide2.style.display = "flex";
-    }
-    if (taskFilter.value == "incompleted") {
-      emptylistslide3.style.display = "none";
-    }
+  saveLocalTasks(taskName, "incompleted");
+  if (taskFilter.value === "completed") {
+    newTask.style.display = "none";
+    if (document.querySelector(".completed") === null)
+      emptylistslide.style.display = "flex";
     taskList.appendChild(newTask);
-  }
-  return flag;
+  } else taskList.appendChild(newTask);
 }
 
 taskList.addEventListener("click", function (e) {
@@ -42,10 +36,10 @@ taskList.addEventListener("click", function (e) {
     e.target.classList.toggle("incompleted");
     if (taskFilter.value == "completed") {
       if (document.querySelector(".completed") == null)
-        emptylistslide2.style.display = "flex";
+        emptylistslide.style.display = "flex";
       e.target.style.display = "none";
     }
-    saveLocalTasks(
+    changeLocalTask(
       e.target.querySelector(".taskText").innerHTML,
       "incompleted"
     );
@@ -58,15 +52,16 @@ taskList.addEventListener("click", function (e) {
     e.target.classList.remove("incompleted");
     if (taskFilter.value == "incomplete") {
       if (document.querySelector(".incompleted") == null)
-        emptylistslide3.style.display = "flex";
+        emptylistslide.style.display = "flex";
       e.target.style.display = "none";
     }
-    saveLocalTasks(e.target.querySelector(".taskText").innerHTML, "completed");
+    changeLocalTask(e.target.querySelector(".taskText").innerHTML, "completed");
     showNotification(
       `Task "${e.target.querySelector(".taskText").innerHTML}" completed!`,
       "rgb(241, 222, 110)"
     );
   }
+
   if (e.target.tagName === "IMG") {
     showNotification(
       `Task "${
@@ -76,26 +71,11 @@ taskList.addEventListener("click", function (e) {
     );
     deleteFromLocalTasks(e.target.parentNode);
     e.target.parentNode.remove();
+
     if (
       document.querySelector(".taskList").getElementsByTagName("li").length == 0
     ) {
-      emptylistslide1.style.display = "flex";
-    }
-    if (taskFilter.value == "incomplete") {
-      if (document.querySelector(".incompleted") == null) {
-        emptylistslide3.style.display = "flex";
-        emptylistslide1.style.display = "none";
-        emptylistslide2.style.display = "none";
-      }
-      e.target.style.display = "none";
-    }
-    if (taskFilter.value == "complete") {
-      if (document.querySelector(".completed") == null) {
-        emptylistslide2.style.display = "flex";
-        emptylistslide3.style.display = "none";
-        emptylistslide1.style.display = "none";
-      }
-      e.target.style.display = "none";
+      emptylistslide.style.display = "flex";
     }
   }
 });
@@ -122,22 +102,18 @@ function filterTasks(e) {
         if (
           document.querySelector(".taskList").querySelector(".taskItem") ===
           null
-        ) {
-          emptylistslide1.style.display = "flex";
-        }
-        emptylistslide2.style.display = "none";
-        emptylistslide3.style.display = "none";
+        )
+          emptylistslide.style.display = "flex";
+        else emptylistslide.style.display = "none";
         task.style.display = "flex";
         break;
       case "completed":
-        emptylistslide1.style.display = "none";
-        emptylistslide3.style.display = "none";
         if (
           document.querySelector(".taskList").querySelector(".completed") ===
           null
-        ) {
-          emptylistslide2.style.display = "flex";
-        }
+        )
+          emptylistslide.style.display = "flex";
+        else emptylistslide.style.display = "none";
         if (task.classList.contains("completed")) {
           task.style.display = "flex";
         } else {
@@ -145,14 +121,12 @@ function filterTasks(e) {
         }
         break;
       case "incomplete":
-        emptylistslide1.style.display = "none";
-        emptylistslide2.style.display = "none";
         if (
           document.querySelector(".taskList").querySelector(".incompleted") ===
           null
-        ) {
-          emptylistslide3.style.display = "flex";
-        }
+        )
+          emptylistslide.style.display = "flex";
+        else emptylistslide.style.display = "none";
         if (task.classList.contains("incompleted")) {
           task.style.display = "flex";
         } else {
