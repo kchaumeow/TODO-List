@@ -3,36 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="TODO-list application">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
         <link rel="icon" href="./images/fox.png">
-        <title>TODO</title>
+        <title>TODO-List</title>
     </head>
     <body>
         <header>
             <h1>Your TODO List!</h1>
         </header>
         <div class="container">
-            <form id="taskForm">
-                <input type="text" class="taskName" id="taskName" placeholder="Enter task here...">
-                <input type="submit" value="Add" id="taskButton" class="taskButton">
-                    <select name="todos" class="taskFilter"> 
-                        <option value="all">All</option>
-                        <option value="completed">Completed</option>
-                        <option value="incomplete">Incompleted</option>
-                    </select>
-            </form>
+                <form id="taskForm">
+                    <input type="text" class="taskName" id="taskName" placeholder="Enter task here...">
+                    <input type="submit" value="Add" id="taskButton" class="taskButton">
+                        <select name="todos" class="taskFilter"> 
+                            <option value="all">All</option>
+                            <option value="completed">Completed</option>
+                            <option value="incomplete">Incompleted</option>
+                        </select>
+                </form>
             <div class="tasks-container">
                 <div class="emptylistslide1">
-                    <img src="./images/fox.png" alt="">
+                    <img src="./images/fox.png">
                     <h2>No Tasks yet...<h/2>
                 </div>
                 <div class="emptylistslide2">
-                    <img src="./images/fox.png" alt="">
+                    <img src="./images/fox.png">
                     <h2>No Tasks yet...<h/2>
                 </div>
                 <div class="emptylistslide3">
-                    <img src="./images/fox.png" alt="">
+                    <img src="./images/fox.png">
                     <h2>No Tasks yet...<h/2>
                 </div>
                 <ul class="taskList"></ul>
