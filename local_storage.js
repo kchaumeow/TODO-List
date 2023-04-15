@@ -10,11 +10,11 @@ export function saveLocalTasks(taskName, taskStatus) {
   } else {
     tasks = JSON.parse(localStorage.getItem("tasks"));
   }
-
+  
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].task === taskName) {
       showNotification(`You already have task "${taskName}"!`, "indianred");
-      return;
+      return 0;
     }
   }
   tasks.push({
@@ -22,6 +22,7 @@ export function saveLocalTasks(taskName, taskStatus) {
     status: taskStatus,
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  return 1;
 }
 
 export function changeLocalTask(taskName, taskStatus) {

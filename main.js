@@ -16,18 +16,35 @@ function addNewTask(taskName) {
   const newTask = document.createElement("li");
   newTask.classList.add("taskItem");
   newTask.classList.add("incompleted");
-  newTask.innerHTML = `<div class="taskText">${taskName}</div>`;
+  const taskText = document.createElement("div");
+  taskText.classList.add("taskText");
+  taskText.innerHTML = taskName;
+  newTask.appendChild(taskText);
   const delImg = document.createElement("img");
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
   newTask.appendChild(delImg);
-  saveLocalTasks(taskName, "incompleted");
-  if (taskFilter.value === "completed") {
-    newTask.style.display = "none";
-    if (document.querySelector(".completed") === null)
+  let isSaved = saveLocalTasks(taskName, "incompleted");
+  if (isSaved) {
+    if (taskFilter.value === "completed") {
+      newTask.style.display = "none";
+      if (document.querySelector(".completed") === null)
+        emptylistslide.style.display = "flex";
+      taskList.appendChild(newTask);
+    } else taskList.appendChild(newTask);
+  } else {
+    if (
+      taskFilter.value === "incomplete" &&
+      document.querySelector(".incompleted") === null
+    )
       emptylistslide.style.display = "flex";
-    taskList.appendChild(newTask);
-  } else taskList.appendChild(newTask);
+    if (
+      taskFilter.value === "completed" &&
+      document.querySelector(".completed") === null
+    )
+      emptylistslide.style.display = "flex";
+  }
+  return isSaved;
 }
 
 taskList.addEventListener("click", function (e) {
@@ -85,8 +102,7 @@ taskForm.addEventListener("submit", function (e) {
   const taskName = document.querySelector("#taskName").value;
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
-  } else {
-    addNewTask(taskName);
+  } else if (addNewTask(taskName)) {
     showNotification(`New task  "${taskName}" added!`, "darkseagreen");
   }
   document.querySelector("#taskName").value = "";
