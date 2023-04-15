@@ -86,9 +86,8 @@ taskForm.addEventListener("submit", function (e) {
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
   } else {
-    let flag = addNewTask(taskName);
-    if (!flag)
-      showNotification(`New task  "${taskName}" added!`, "darkseagreen");
+    addNewTask(taskName);
+    showNotification(`New task  "${taskName}" added!`, "darkseagreen");
   }
   document.querySelector("#taskName").value = "";
 });
