@@ -11,7 +11,7 @@ const taskList = document.querySelector(".taskList");
 // when list is empty appears
 let emptylistslide = document.querySelector(".emptylistslide");
 
-function addNewTask(taskName.trim()) {
+function addNewTask(taskName) {
   emptylistslide.style.display = "none";
   const newTask = document.createElement("li");
   newTask.classList.add("taskItem");
@@ -99,7 +99,7 @@ taskList.addEventListener("click", function (e) {
 
 taskForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  const taskName = document.querySelector("#taskName").value;
+  const taskName = document.querySelector("#taskName").value.trim();
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
   } else if (addNewTask(taskName)) {
