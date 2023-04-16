@@ -11,7 +11,7 @@ const taskList = document.querySelector(".taskList");
 // when list is empty appears
 let emptylistslide = document.querySelector(".emptylistslide");
 
-function addNewTask(taskName) {
+function addNewTask(taskName.trim()) {
   emptylistslide.style.display = "none";
   const newTask = document.createElement("li");
   newTask.classList.add("taskItem");
