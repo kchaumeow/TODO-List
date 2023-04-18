@@ -121,9 +121,7 @@ taskForm.addEventListener("submit", function (e) {
   const date = document.querySelector(".inputDate").value;
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
-  } else if (
-    addNewTask(taskName, date.slice(2, date.length).replaceAll("-", "."))
-  ) {
+  } else if (addNewTask(taskName, date.replaceAll("-", "."))) {
     showNotification(`New task  "${taskName}" added!`, "darkseagreen");
   }
   document.querySelector("#taskName").value = "";
