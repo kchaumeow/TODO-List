@@ -67,6 +67,19 @@ h1{
     border: solid  2px black;
     border-radius: 0.2em;
 }
+
+.inputDate{
+    background-color: white;
+    color: black;
+    font-family: 'Press Start 2P';
+    transition: transform 0.4s;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.taskDate{
+    
+}
 .taskButton{
     border-radius: .1rem;
     background-color: black;
@@ -122,12 +135,26 @@ form{
     outline:none;
     cursor: pointer;
 }
+.taskItem{
+    display: grid;
+    gap: 0.4em;
+
+}
+.taskText{
+    width:75%;
+    margin-bottom: 0.5em;
+}
+
+.taskDate{
+    margin-bottom: 0.5em;
+    text-decoration: none;
+}
 @media screen and (max-width: 512px) {
     form{
         flex-wrap: wrap;
     }
-    .tasksСontainer{
-        width: fit-content;
+    .taskItem{
+        display: block;
     }
     .notificationСontainer{
         width: 60%;
@@ -157,11 +184,7 @@ ul li.completed::after{
     background-image: url(./images/checked.png);
     cursor: pointer;
 }
-.taskItem{
-    gap: 5em;
-    display: flex;
-    flex-direction: row;
-}
+
 #delete{
     width: 2em;
     height: 2em;

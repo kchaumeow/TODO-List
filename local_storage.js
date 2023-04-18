@@ -3,14 +3,14 @@ import { showNotification } from "./notification.js";
 let emptylistslide = document.querySelector(".emptylistslide");
 const taskList = document.querySelector(".taskList");
 
-export function saveLocalTasks(taskName, taskStatus) {
+export function saveLocalTasks(taskName, taskStatus, date) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem("tasks"));
   }
-  
+
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].task === taskName) {
       showNotification(`You already have task "${taskName}"!`, "indianred");
@@ -20,12 +20,13 @@ export function saveLocalTasks(taskName, taskStatus) {
   tasks.push({
     task: taskName,
     status: taskStatus,
+    date: date,
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
   return 1;
 }
 
-export function changeLocalTask(taskName, taskStatus) {
+export function changeLocalTask(taskName, taskStatus, taskDate) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
@@ -38,6 +39,7 @@ export function changeLocalTask(taskName, taskStatus) {
       tasks[i] = {
         task: taskName,
         status: taskStatus,
+        date: taskDate,
       };
       break;
     }
@@ -67,6 +69,23 @@ export function getLocalTasks() {
     taskText.classList.add("taskText");
     taskText.innerHTML = task.task;
     newTask.appendChild(taskText);
+    const taskDate = document.createElement("div");
+    taskDate.classList.add("taskDate");
+    taskDate.innerHTML = task.date;
+    if (
+      task.date <
+      new Date()
+        .toISOString()
+        .split("T")[0]
+        .slice(2, this.length)
+        .replaceAll("-", ".")
+    ) {
+      taskDate.style.color = "indianred";
+    } else taskDate.style.color = "rgb(118, 202, 92)";
+    if (task.status === "completed") {
+      taskDate.style.display = "none";
+    } else taskDate.style.display = "flex";
+    newTask.appendChild(taskDate);
     const delImg = document.createElement("img");
     delImg.src = "./images/delete.png";
     delImg.id = "delete";

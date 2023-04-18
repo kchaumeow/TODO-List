@@ -8,10 +8,16 @@ const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
 
+const inputDate = document.querySelector(".inputDate");
+inputDate.setAttribute("min", new Date().toISOString().split("T")[0]);
+inputDate.addEventListener("change", ({ target }) => {
+  const date = new Date(target.value);
+});
+
 // when list is empty appears
 let emptylistslide = document.querySelector(".emptylistslide");
 
-function addNewTask(taskName) {
+function addNewTask(taskName, date) {
   emptylistslide.style.display = "none";
   const newTask = document.createElement("li");
   newTask.classList.add("taskItem");
@@ -20,11 +26,15 @@ function addNewTask(taskName) {
   taskText.classList.add("taskText");
   taskText.innerHTML = taskName;
   newTask.appendChild(taskText);
+  const taskDate = document.createElement("div");
+  taskDate.classList.add("taskDate");
+  taskDate.innerHTML = date;
   const delImg = document.createElement("img");
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
+  newTask.appendChild(taskDate);
   newTask.appendChild(delImg);
-  let isSaved = saveLocalTasks(taskName, "incompleted");
+  let isSaved = saveLocalTasks(taskName, "incompleted", date);
   if (isSaved) {
     if (taskFilter.value === "completed") {
       newTask.style.display = "none";
@@ -51,6 +61,7 @@ taskList.addEventListener("click", function (e) {
   if (e.target.tagName === "LI" && e.target.classList.contains("completed")) {
     e.target.classList.remove("completed");
     e.target.classList.toggle("incompleted");
+    e.target.querySelector(".taskDate").style.display = "flex";
     if (taskFilter.value == "completed") {
       if (document.querySelector(".completed") == null)
         emptylistslide.style.display = "flex";
@@ -58,7 +69,8 @@ taskList.addEventListener("click", function (e) {
     }
     changeLocalTask(
       e.target.querySelector(".taskText").innerHTML,
-      "incompleted"
+      "incompleted",
+      e.target.querySelector(".taskDate").innerHTML
     );
     showNotification(
       `Task "${e.target.querySelector(".taskText").innerHTML}" incomplited`,
@@ -67,12 +79,17 @@ taskList.addEventListener("click", function (e) {
   } else if (e.target.tagName === "LI") {
     e.target.classList.toggle("completed");
     e.target.classList.remove("incompleted");
+    e.target.querySelector(".taskDate").style.display = "none";
     if (taskFilter.value == "incomplete") {
       if (document.querySelector(".incompleted") == null)
         emptylistslide.style.display = "flex";
       e.target.style.display = "none";
     }
-    changeLocalTask(e.target.querySelector(".taskText").innerHTML, "completed");
+    changeLocalTask(
+      e.target.querySelector(".taskText").innerHTML,
+      "completed",
+      e.target.querySelector(".taskDate").innerHTML
+    );
     showNotification(
       `Task "${e.target.querySelector(".taskText").innerHTML}" completed!`,
       "rgb(241, 222, 110)"
@@ -100,9 +117,12 @@ taskList.addEventListener("click", function (e) {
 taskForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const taskName = document.querySelector("#taskName").value;
+  const date = document.querySelector(".inputDate").value;
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
-  } else if (addNewTask(taskName)) {
+  } else if (
+    addNewTask(taskName, date.slice(2, date.length).replaceAll("-", "."))
+  ) {
     showNotification(`New task  "${taskName}" added!`, "darkseagreen");
   }
   document.querySelector("#taskName").value = "";
@@ -120,9 +140,10 @@ function filterTasks(e) {
         )
           emptylistslide.style.display = "flex";
         else emptylistslide.style.display = "none";
-        task.style.display = "flex";
+        task.style.display = "grid";
         break;
       case "completed":
+        document.querySelector(".taskDate").style.display = "none";
         if (
           document.querySelector(".taskList").querySelector(".completed") ===
           null
@@ -130,12 +151,13 @@ function filterTasks(e) {
           emptylistslide.style.display = "flex";
         else emptylistslide.style.display = "none";
         if (task.classList.contains("completed")) {
-          task.style.display = "flex";
+          task.style.display = "grid";
         } else {
           task.style.display = "none";
         }
         break;
       case "incomplete":
+        document.querySelector(".taskDate").style.display = "flex";
         if (
           document.querySelector(".taskList").querySelector(".incompleted") ===
           null
@@ -143,7 +165,7 @@ function filterTasks(e) {
           emptylistslide.style.display = "flex";
         else emptylistslide.style.display = "none";
         if (task.classList.contains("incompleted")) {
-          task.style.display = "flex";
+          task.style.display = "grid";
         } else {
           task.style.display = "none";
         }
