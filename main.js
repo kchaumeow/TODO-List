@@ -29,6 +29,7 @@ function addNewTask(taskName, date) {
   const taskDate = document.createElement("div");
   taskDate.classList.add("taskDate");
   taskDate.innerHTML = date;
+  taskDate.style.color = "rgb(118, 202, 92)";
   const delImg = document.createElement("img");
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
