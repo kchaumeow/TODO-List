@@ -116,7 +116,7 @@ taskList.addEventListener("click", function (e) {
 
 taskForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  const taskName = document.querySelector("#taskName").value;
+  const taskName = document.querySelector("#taskName").value.trim();
   const date = document.querySelector(".inputDate").value;
   if (taskName == "") {
     showNotification("Enter task name!", "indianred");
