@@ -8,14 +8,17 @@ const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
 const inputDate = document.querySelector(".inputDate");
+
+// setting up date input
 inputDate.setAttribute("min", new Date().toISOString().split("T")[0]);
 inputDate.addEventListener("change", ({ target }) => {
   const date = new Date(target.value);
 });
 
-// when list is empty appears
+// when list is empty appears this div
 let emptylistslide = document.querySelector(".emptylistslide");
 
+// adding new task
 function addNewTask(taskName, date) {
   emptylistslide.style.display = "none";
   const newTask = document.createElement("li");
@@ -32,6 +35,8 @@ function addNewTask(taskName, date) {
   if (comparableDate < new Date()) {
     taskDate.style.color = "indianred";
   } else taskDate.style.color = "rgb(118, 202, 92)";
+  if (comparableDate.getDay == new Date().getDay)
+    taskDate.style.color = "rgb(250, 200, 150)";
   const delImg = document.createElement("img");
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
@@ -60,6 +65,7 @@ function addNewTask(taskName, date) {
   return isSaved;
 }
 
+//changing task status
 taskList.addEventListener("click", function (e) {
   if (e.target.tagName === "LI" && e.target.classList.contains("completed")) {
     e.target.classList.remove("completed");
@@ -117,6 +123,7 @@ taskList.addEventListener("click", function (e) {
   }
 });
 
+// form of adding new task
 taskForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const taskName = document.querySelector("#taskName").value.trim();
@@ -129,6 +136,7 @@ taskForm.addEventListener("submit", function (e) {
   document.querySelector("#taskName").value = "";
 });
 
+// filtering All, Completed, Incompleted tasks
 taskFilter.addEventListener("change", filterTasks);
 function filterTasks(e) {
   const tasks = taskList.childNodes;

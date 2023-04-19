@@ -77,6 +77,8 @@ export function getLocalTasks() {
     if (comparableDate < new Date()) {
       taskDate.style.color = "indianred";
     } else taskDate.style.color = "rgb(118, 202, 92)";
+    if (comparableDate.getDay == new Date().getDay)
+      taskDate.style.color = "rgb(250, 200, 150)";
     if (task.status === "completed") {
       taskDate.style.display = "none";
     } else taskDate.style.display = "flex";
