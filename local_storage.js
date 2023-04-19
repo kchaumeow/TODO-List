@@ -72,14 +72,9 @@ export function getLocalTasks() {
     const taskDate = document.createElement("div");
     taskDate.classList.add("taskDate");
     taskDate.innerHTML = task.date;
-    if (
-      task.date <
-      new Date()
-        .toISOString()
-        .split("T")[0]
-        .slice(2, this.length)
-        .replaceAll("-", ".")
-    ) {
+    console.log(task.date);
+    const comparableDate = new Date(task.date);
+    if (comparableDate < new Date()) {
       taskDate.style.color = "indianred";
     } else taskDate.style.color = "rgb(118, 202, 92)";
     if (task.status === "completed") {
