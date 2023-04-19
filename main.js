@@ -8,7 +8,7 @@ const taskForm = document.getElementById("taskForm");
 const taskFilter = document.querySelector(".taskFilter");
 const taskList = document.querySelector(".taskList");
 const inputDate = document.querySelector(".inputDate");
-// inputDate.setAttribute("min", new Date().toISOString().split("T")[0]);
+inputDate.setAttribute("min", new Date().toISOString().split("T")[0]);
 inputDate.addEventListener("change", ({ target }) => {
   const date = new Date(target.value);
 });
