@@ -33,10 +33,15 @@ function addNewTask(taskName, date) {
   taskDate.innerHTML = date;
   const comparableDate = new Date(date);
   if (comparableDate < new Date()) {
-    taskDate.style.color = "indianred";
+    if (
+      new Date().getDate() == comparableDate.getDate() &&
+      new Date().getMonth() == comparableDate.getMonth() &&
+      new Date().getFullYear() == comparableDate.getFullYear()
+    )
+      taskDate.style.color = "rgb(250, 200, 150)";
+    else taskDate.style.color = "indianred";
   } else taskDate.style.color = "rgb(118, 202, 92)";
-  if (comparableDate.getDay == new Date().getDay)
-    taskDate.style.color = "rgb(250, 200, 150)";
+
   const delImg = document.createElement("img");
   delImg.src = "./images/delete.png";
   delImg.id = "delete";
