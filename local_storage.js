@@ -95,7 +95,7 @@ export function getLocalTasks() {
   });
 }
 
-export function deleteFromLocalTasks(task) {
+export function deleteFromLocalTasks(currTask) {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
@@ -103,6 +103,21 @@ export function deleteFromLocalTasks(task) {
     tasks = JSON.parse(localStorage.getItem("tasks"));
   }
 
-  tasks.splice(tasks.indexOf(task.querySelector(".taskText").innerHTML), 1);
+  let taskStatus = currTask.classList.contains("incompleted")
+    ? "incompleted"
+    : "completed";
+
+  const taskObject = {
+    task: currTask.querySelector(".taskText").innerHTML,
+    status: taskStatus,
+    date: currTask.querySelector(".taskDate").innerHTML,
+  };
+  let deleteIndex = -1;
+  for (let index in tasks) {
+    if (tasks[index].task == taskObject.task) {
+      deleteIndex = index;
+    }
+  }
+  tasks.splice(deleteIndex, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }

@@ -117,6 +117,7 @@ taskList.addEventListener("click", function (e) {
       }" was deleted!`,
       "indianred"
     );
+    console.log(e.target.parentNode.querySelector(".taskText").innerHTML);
     deleteFromLocalTasks(e.target.parentNode);
     e.target.parentNode.remove();
 
